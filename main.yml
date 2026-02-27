@@ -25,7 +25,7 @@
 
     - name: Curl test - check httpd is responding
       uri:
-        url: "http://{{ ansible_host }}"
+        url: "http://{{ inventory_hostname }}"
         method: GET
         status_code: 200
         timeout: 10
@@ -35,4 +35,4 @@
 
     - name: Print curl result
       debug:
-        msg: "HTTP {{ result.status }} - httpd is up and responding on {{ ansible_host }}"
+        msg: "HTTP {{ result.status }} - httpd is up and responding on {{ inventory_hostname }}"
