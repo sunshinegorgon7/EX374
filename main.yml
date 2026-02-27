@@ -1,0 +1,38 @@
+---
+- name: Deploy and test httpd
+  hosts: node1
+  become: yes
+
+  tasks:
+
+    - name: Install httpd
+      package:
+        name: httpd
+        state: present
+
+    - name: Enable and start httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Allow port 80 through firewall
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: Curl test - check httpd is responding
+      uri:
+        url: "http://{{ ansible_host }}"
+        method: GET
+        status_code: 200
+        timeout: 10
+      register: result
+      delegate_to: localhost
+      become: no
+
+    - name: Print curl result
+      debug:
+        msg: "HTTP {{ result.status }} - httpd is up and responding on {{ ansible_host }}"
