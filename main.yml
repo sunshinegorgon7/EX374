@@ -12,10 +12,11 @@
 
     - name: Enable and start httpd
       service:
-        name: httpd
+        name: "{{ item }}"
         state: started
         enabled: yes
       when: app == "httpd"
+      with_items: "{{ app }}"
 
     - name: Allow port 80 through firewall
       firewalld:
