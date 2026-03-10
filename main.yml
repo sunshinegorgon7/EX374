@@ -15,7 +15,7 @@
         name: "{{ item }}"
         state: started
         enabled: yes
-      when: app == "httpd"
+      when: item == "httpd"
       with_items: "{{ app }}"
 
     - name: Allow port 80 through firewall
