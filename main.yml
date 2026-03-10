@@ -7,7 +7,7 @@
 
     - name: Install httpd
       package:
-        name: httpd
+        name: "{{ app }}"
         state: present
 
     - name: Enable and start httpd
@@ -15,6 +15,7 @@
         name: httpd
         state: started
         enabled: yes
+      when: "{{ app }} == httpd"
 
     - name: Allow port 80 through firewall
       firewalld:
