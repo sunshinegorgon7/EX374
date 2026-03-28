@@ -1,5 +1,5 @@
 ---
-- name: Deploy and test httpd
+- name: Deploy and test httpd and other packeages
   hosts: node1
   become: yes
 
